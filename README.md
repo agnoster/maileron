@@ -1,5 +1,4 @@
-# Postman Pat [![build
-status](https://secure.travis-ci.org/agnoster/postman-pat.png?branch=master)](http://travis-ci.org/agnoster/postman-pat)
+# Postman Pat [![build status](https://secure.travis-ci.org/agnoster/postman-pat.png?branch=master)](http://travis-ci.org/agnoster/postman-pat)
 
 SMTP ==> HTTP REST JSON API
 
@@ -27,27 +26,56 @@ purposes.
 
     sudo postman-pat
 
-(The `sudo` is required to listen to ports 25 and 80 for SMTP and HTTP,
-respectively. Without sudo, Pat will run on ports 9025 and 9080.)
+The `sudo` is required to listen to ports 25 and 80 for SMTP and HTTP,
+respectively. Without sudo, Pat will run on ports 9025 and 9080, which means it
+would only work with specially-configured mail clients.
 
-Now, point your MX record for a domain (such as `test.example.com`) to the
-server running Pat.
+Now, point your MX record for a domain (in my case, `pat.agnoster.net`) to the
+server running Pat (which for me is also `pat.agnoster.net`).
 
 ## use
 
-Send an email to `example.user.1@test.example.com`, for instance:
+Send an email to `example@pat.agnoster.net`, for instance:
 
 ```
-$ mail example.user.1@test.example.com
-Subject: Are you listening to me?
-You really should be.
-.
+MAIL example@pat.agnoster.net
+Subject: Hello World
+
+How are you?
 ```
 
-Then check it out:
+Then hit the webserver (in this example, `pat.agnoster.net`) and check it out
+(some values elided for clarity):
 
-    $ curl test.example.com/inbox/example.user.1 [{"subject":"Are you listening
-    to me?","text":"You really should be.\n"}]
+```
+GET /inbox/example
+```
+
+```
+200 OK
+Content-type: application/json
+
+[
+  {
+    "text": "How are you?",
+    "headers": { ... },
+    "subject": "Hello World",
+    "from": [
+      {
+        "address": "i@agnoster.net",
+        "name": "Isaac Wolkerstorfer"
+      }
+    ],
+    "to": "example",
+    "envelope": {
+      "from": "agnoster@gmail.com",
+      "to": ["example@pat.agnoster.net"],
+      "date": "2012-08-23T17:50:20.013Z"
+    }
+  },
+  ...
+]
+```
 
 That's really all there is to it. You can `DELETE` a mailbox to clear it.
 
