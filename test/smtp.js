@@ -22,7 +22,7 @@ describe('SMTP listener', function() {
   })
 
   it('emits an event when it receives a message', function(done) {
-    smtpServer.once('message', function(message) {
+    smtpServer.once('message', function(id, message) {
       done()
     })
 
@@ -35,8 +35,8 @@ describe('SMTP listener', function() {
   })
 
   it('parses the email correctly', function(done) {
-    smtpServer.once('message', function(message) {
-      message.to.should.equal('user.1')
+    smtpServer.once('message', function(id, message) {
+      id.should.equal('user.1')
       message.headers.should.eql({subject: 'Test 2', "content-type": 'text/plain'})
       message.text.should.equal("This is from mocha.\nHi!")
       message.subject.should.equal('Test 2')

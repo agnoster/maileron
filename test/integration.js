@@ -51,7 +51,6 @@ describe('Command-line tool', function() {
         res = res.body[0]
         res.subject.should.equal('Howdy')
         res.text.should.equal("Hello world.")
-        res.to.should.equal("int.1")
         res.headers.should.eql({subject: "Howdy", "content-type": "text/plain"})
         done()
       })

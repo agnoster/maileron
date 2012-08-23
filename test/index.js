@@ -7,8 +7,8 @@ describe('Maileron', function() {
   })
 
   it('receives messages', function() {
-    var message = { subject: "hello", to: "user.1", body: "Hi there." }
-    maileron.receive(message)
+    var message = { subject: "hello", text: "Hi there." }
+    maileron.receive('user.1', message)
 
     maileron.list('user.1').should.eql([message])
   })

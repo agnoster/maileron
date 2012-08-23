@@ -12,8 +12,8 @@ describe('HTTP endpoints', function() {
   })
 
   it('lets you GET the messages for a user', function(done) {
-    var message = { subject: "foobar", to: "user.1", text: "hello world" }
-    maileron.receive(message)
+    var message = { subject: "foobar", text: "hello world" }
+    maileron.receive('user.1', message)
     request.get('http://localhost:8080/inbox/user.1', {json:true}, function(err, result) {
       result.body.should.eql([message])
       done()
@@ -21,8 +21,8 @@ describe('HTTP endpoints', function() {
   })
 
   it('lets you DELETE to clear the message queue', function(done) {
-    var message = { subject: "foobar", to: "user.2", text: "hello world" }
-    maileron.receive(message)
+    var message = { subject: "foobar", text: "hello world" }
+    maileron.receive('user.2', message)
     maileron.list('user.2').should.eql([message])
     request.del('http://localhost:8080/inbox/user.2', function(err, result) {
       result.statusCode.should.equal(200)
