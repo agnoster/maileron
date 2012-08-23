@@ -6,21 +6,21 @@ var cp = require('child_process')
 
 var http_port = 10000 + Math.floor(Math.random() * 10000)
 , smtp_port = http_port + 1
-, pat, send = pony({ host: "localhost", port: smtp_port, from: "mocha@pat.agnoster.net" })
+, maileron, send = pony({ host: "localhost", port: smtp_port, from: "mocha@pat.agnoster.net" })
 
 describe('Command-line tool', function() {
 
   it('starts up', function(done) {
-    pat = cp.execFile('./bin/postman-pat', ['-s', smtp_port, '-h', http_port])
+    maileron = cp.execFile('./bin/maileron', ['-s', smtp_port, '-h', http_port])
     done()
   })
 
   after(function() {
-    pat.kill()
+    maileron.kill()
   })
 
   it('can be started with custom ports', function(done) {
-    pat.stdout.once('data', function(chunk) {
+    maileron.stdout.once('data', function(chunk) {
       // give it a moment to start up
       setTimeout(done, 500)
     })

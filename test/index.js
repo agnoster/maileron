@@ -1,20 +1,20 @@
 var should = require('should')
-, pat = require('../').createServer()
+, maileron = require('../').createServer()
 
-describe('Postman Pat', function() {
+describe('Maileron', function() {
   it('exists', function() {
-    should.exist(pat)
+    should.exist(maileron)
   })
 
   it('receives messages', function() {
     var message = { subject: "hello", to: "user.1", body: "Hi there." }
-    pat.receive(message)
+    maileron.receive(message)
 
-    pat.list('user.1').should.eql([message])
+    maileron.list('user.1').should.eql([message])
   })
 
   it('clears the queue', function() {
-    pat.clear('user.1')
-    pat.list('user.1').should.eql([])
+    maileron.clear('user.1')
+    maileron.list('user.1').should.eql([])
   })
 })

@@ -1,7 +1,7 @@
 var should = require('should')
 , net = require('net')
-, pat = require('../').createServer()
-, smtpServer = pat.smtpServer
+, maileron = require('../').createServer()
+, smtpServer = maileron.smtpServer
 , pony = require('pony')
 
 var port = 2525 + Math.floor(Math.random() * 1000)

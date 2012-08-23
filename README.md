@@ -1,4 +1,4 @@
-# Postman Pat [![build status](https://secure.travis-ci.org/agnoster/postman-pat.png?branch=master)](http://travis-ci.org/agnoster/postman-pat)
+# Maileron [![build status](https://secure.travis-ci.org/agnoster/maileron.png?branch=master)](http://travis-ci.org/agnoster/maileron)
 
 SMTP ==> HTTP REST JSON API
 
@@ -20,18 +20,18 @@ purposes.
 
 ## install
 
-    npm install -g postman-pat
+    npm install -g maileron
 
 ## setup
 
-    sudo postman-pat
+    sudo maileron
 
 The `sudo` is required to listen to ports 25 and 80 for SMTP and HTTP,
-respectively. Without sudo, Pat will run on ports 9025 and 9080, which means it
+respectively. Without sudo, maileron will run on ports 9025 and 9080, which means it
 would only work with specially-configured mail clients.
 
 Now, point your MX record for a domain (in my case, `pat.agnoster.net`) to the
-server running Pat (which for me is also `pat.agnoster.net`).
+server running maileron (which for me is also `pat.agnoster.net`).
 
 ## use
 

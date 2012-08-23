@@ -1,8 +1,8 @@
 {
-  "name": "postman-pat",
+  "name": "maileron",
   "version": "0.0.0",
   "author": "Isaac Wolkerstorfer <i@agnoster.net>",
-  "repository": "git://github.com/agnoster/postman-pat.git",
+  "repository": "git://github.com/agnoster/maileron.git",
   "keywords": [
     "email",
     "testing",

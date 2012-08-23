@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var pat = require('../').createServer()
+var maileron = require('../').createServer()
   , argv = require('optimist').argv
 
 var hasRoot = (process.getuid() === 0)
 var smtp_port = argv.s || argv.smtp || argv['smtp-port'] || (hasRoot ? 25 : 9025)
 var http_port = argv.h || argv.http || argv['http-port'] || (hasRoot ? 80 : 9080)
 
-console.log("Starting Pat. Listening to HTTP on port", http_port, "and SMTP on port", smtp_port)
+console.log("Starting Maileron. Listening to HTTP on port", http_port, "and SMTP on port", smtp_port)
 if (!hasRoot) console.log("Note: to run on ports < 1000, you will need to run as the super user.")
-pat.smtpServer.listen(smtp_port)
-pat.httpServer.listen(http_port)
+maileron.smtpServer.listen(smtp_port)
+maileron.httpServer.listen(http_port)
 console.log("Running!")
