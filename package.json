@@ -1,7 +1,7 @@
 {
   "name": "maileron",
   "description": "Server that receives SMTP and serves mail up as JSON via HTTP",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Isaac Wolkerstorfer <i@agnoster.net> (http://agnoster.net)",
   "repository": "git://github.com/agnoster/maileron.git",
   "keywords": [
