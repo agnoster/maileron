@@ -1,0 +1,28 @@
+{
+  "name": "postman-pat",
+  "version": "0.0.0",
+  "author": "Isaac Wolkerstorfer <i@agnoster.net>",
+  "repository": "git://github.com/agnoster/postman-pat.git",
+  "keywords": [
+    "email",
+    "testing",
+    "smtp",
+    "json",
+    "rest"
+  ],
+  "dependencies": {
+    "smtp-protocol": "~0.2.1",
+    "restify": "~1.4.4"
+  },
+  "devDependencies": {
+    "should": "~1.1.0",
+    "mocha": "~1.4.0"
+  },
+  "engines" : {
+    "node": ">=0.6.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "license": "MIT"
+}
