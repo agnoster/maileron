@@ -13,7 +13,8 @@
   "dependencies": {
     "restify": "~1.4.4",
     "optimist": "~0.3.4",
-    "simplesmtp": "~0.1.20"
+    "simplesmtp": "~0.1.20",
+    "mailparser": "~0.2.27"
   },
   "devDependencies": {
     "should": "~1.1.0",

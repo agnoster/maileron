@@ -12,7 +12,7 @@ describe('HTTP endpoints', function() {
   })
 
   it('lets you GET the messages for a user', function(done) {
-    var message = { subject: "foobar", to: "user.1", body: "hello world" }
+    var message = { subject: "foobar", to: "user.1", text: "hello world" }
     pat.receive(message)
     request.get('http://localhost:8080/inbox/user.1', {json:true}, function(err, result) {
       result.body.should.eql([message])
@@ -21,7 +21,7 @@ describe('HTTP endpoints', function() {
   })
 
   it('lets you DELETE to clear the message queue', function(done) {
-    var message = { subject: "foobar", to: "user.2", body: "hello world" }
+    var message = { subject: "foobar", to: "user.2", text: "hello world" }
     pat.receive(message)
     pat.list('user.2').should.eql([message])
     request.del('http://localhost:8080/inbox/user.2', function(err, result) {

@@ -48,9 +48,12 @@ describe('Command-line tool', function() {
     request.get("http://localhost:" + http_port + "/inbox/int.1", {json:true},
       function(err, res) {
         should.not.exist(err)
-        res.body.should.eql([{ subject: "Howdy", body: "Hello world.", to: "int.1",
-          headers: {subject: "Howdy", "content-type": "text/plain"}}])
-          done()
+        res = res.body[0]
+        res.subject.should.equal('Howdy')
+        res.text.should.equal("Hello world.")
+        res.to.should.equal("int.1")
+        res.headers.should.eql({subject: "Howdy", "content-type": "text/plain"})
+        done()
       })
   })
 

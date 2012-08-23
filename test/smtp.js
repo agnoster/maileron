@@ -38,7 +38,7 @@ describe('SMTP listener', function() {
     smtpServer.once('message', function(message) {
       message.to.should.equal('user.1')
       message.headers.should.eql({subject: 'Test 2', "content-type": 'text/plain'})
-      message.body.should.equal("This is from mocha.\nHi!")
+      message.text.should.equal("This is from mocha.\nHi!")
       message.subject.should.equal('Test 2')
 
       done()
@@ -46,8 +46,8 @@ describe('SMTP listener', function() {
 
     send({ to: "user.1@agnoster.net", from: "mocha@agnoster.net" }, function(err, req) {
       should.not.exist(err)
-      req.setHeader('subject', 'Test 2')
-      req.setHeader('content-type', 'text/plain')
+      req.setHeader('Subject', 'Test 2')
+      req.setHeader('Content-type', 'text/plain')
       req.write("This is from mocha.\n")
       req.end("Hi!")
     })
