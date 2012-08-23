@@ -11,3 +11,4 @@ console.log("Starting Pat. Listening to HTTP on port", http_port, "and SMTP on p
 if (!hasRoot) console.log("Note: to run on ports < 1000, you will need to run as the super user.")
 pat.smtpServer.listen(smtp_port)
 pat.httpServer.listen(http_port)
+console.log("Running!")

@@ -3,8 +3,8 @@ var cp = require('child_process')
   , request = require('request')
   , pony = require('pony')
 
-var http_port = 31080
-  , smtp_port = 31025
+var http_port = 10000 + Math.floor(Math.random(10000))
+  , smtp_port = http_port + 1
   , pat, send = pony({ host: "localhost", port: smtp_port, from: "mocha@pat.agnoster.net" })
 
 describe('Command-line tool', function() {
@@ -13,9 +13,14 @@ describe('Command-line tool', function() {
         pat = cp.execFile('./bin/postman-pat', ['-s', smtp_port, '-h', http_port])
     })
 
+    after(function() {
+        pat.kill()
+    })
+
     it('can be started with custom ports', function(done) {
         pat.stdout.once('data', function(chunk) {
-          done()
+          // give it a moment to start up
+          setTimeout(done, 500)
         })
     })
 
