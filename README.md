@@ -1,4 +1,4 @@
-# Postman Pat
+# Postman Pat [![build status](https://secure.travis-ci.org/agnoster/postman-pat.png?branch=master)](http://travis-ci.org/agnoster/postman-pat)
 
 SMTP -> HTTP REST JSON API
 
