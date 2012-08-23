@@ -1,5 +1,5 @@
 var should = require('should')
-  , pat = require('../').createServer()
+, pat = require('../').createServer()
 
 describe('Postman Pat', function() {
   it('exists', function() {

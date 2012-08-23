@@ -1,11 +1,11 @@
 var should = require('should')
-  , net = require('net')
-  , pat = require('../').createServer()
-  , smtpServer = pat.smtpServer
-  , pony = require('pony')
+, net = require('net')
+, pat = require('../').createServer()
+, smtpServer = pat.smtpServer
+, pony = require('pony')
 
 var port = 2525 + Math.floor(Math.random() * 1000)
-  , send = pony({ host: "localhost", port: port })
+, send = pony({ host: "localhost", port: port })
 
 describe('SMTP listener', function() {
 
@@ -17,16 +17,13 @@ describe('SMTP listener', function() {
     smtpServer.listen(port, done)
   })
 
-  it('can be connected to', function(ok) {
-    net.connect(port, 'localhost', function() {
-	console.log(arguments)
-      ok()
-    })
+  it('can be connected to', function(done) {
+    net.connect(port, 'localhost', done)
   })
 
-  it('emits an event when it receives a message', function(ok) {
+  it('emits an event when it receives a message', function(done) {
     smtpServer.once('message', function(message) {
-        ok()
+      done()
     })
 
     send({ to: "user.1@agnoster.net", from: "mocha@agnoster.net" }, function(err, req) {
@@ -37,14 +34,14 @@ describe('SMTP listener', function() {
     })
   })
 
-  it('parses the email correctly', function(ok) {
+  it('parses the email correctly', function(done) {
     smtpServer.once('message', function(message) {
-        message.to.should.equal('user.1')
-        message.headers.should.eql({subject: 'Test 2', "content-type": 'text/plain'})
-        message.body.should.equal("This is from mocha.\nHi!")
-        message.subject.should.equal('Test 2')
+      message.to.should.equal('user.1')
+      message.headers.should.eql({subject: 'Test 2', "content-type": 'text/plain'})
+      message.body.should.equal("This is from mocha.\nHi!")
+      message.subject.should.equal('Test 2')
 
-        ok()
+      done()
     })
 
     send({ to: "user.1@agnoster.net", from: "mocha@agnoster.net" }, function(err, req) {
