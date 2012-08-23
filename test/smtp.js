@@ -4,10 +4,8 @@ var should = require('should')
   , smtpServer = pat.smtpServer
   , pony = require('pony')
 
-var port = 2525
+var port = 2525 + Math.floor(Math.random() * 1000)
   , send = pony({ host: "localhost", port: port })
-
-smtpServer.listen(port)
 
 describe('SMTP listener', function() {
 
@@ -15,18 +13,13 @@ describe('SMTP listener', function() {
     should.exist(smtpServer)
   })
 
-  it('can be connected to', function(ok) {
-    net.connect(port, 'localhost', function() {
-      ok()
-    })
+  it('starts up', function(done) {
+    smtpServer.listen(port, done)
   })
 
-  it('can have mail sent to it', function(ok) {
-    send({ to: "user.1@agnoster.net", from: "mocha@agnoster.net" }, function(err, req) {
-      should.not.exist(err)
-      req.setHeader('subject', 'hello there')
-      req.setHeader('content-type', 'text/plain')
-      req.end('This is from mocha. Hi!')
+  it('can be connected to', function(ok) {
+    net.connect(port, 'localhost', function() {
+	console.log(arguments)
       ok()
     })
   })
@@ -38,7 +31,7 @@ describe('SMTP listener', function() {
 
     send({ to: "user.1@agnoster.net", from: "mocha@agnoster.net" }, function(err, req) {
       should.not.exist(err)
-      req.setHeader('subject', 'hello there')
+      req.setHeader('subject', 'Test 1')
       req.setHeader('content-type', 'text/plain')
       req.end('This is from mocha. Hi!')
     })
@@ -47,17 +40,19 @@ describe('SMTP listener', function() {
   it('parses the email correctly', function(ok) {
     smtpServer.once('message', function(message) {
         message.to.should.equal('user.1')
-        message.headers.should.eql({subject: 'hello there', "content-type": 'text/plain'})
-        message.body.should.equal('This is from mocha.\nHi!')
-        message.subject.should.equal('hello there')
+        message.headers.should.eql({subject: 'Test 2', "content-type": 'text/plain'})
+        message.body.should.equal("This is from mocha.\nHi!")
+        message.subject.should.equal('Test 2')
+
         ok()
     })
 
     send({ to: "user.1@agnoster.net", from: "mocha@agnoster.net" }, function(err, req) {
       should.not.exist(err)
-      req.setHeader('subject', 'hello there')
+      req.setHeader('subject', 'Test 2')
       req.setHeader('content-type', 'text/plain')
-      req.end('This is from mocha.\r\nHi!')
+      req.write("This is from mocha.\n")
+      req.end("Hi!")
     })
   })
 })

@@ -2,15 +2,17 @@ var cp = require('child_process')
   , should = require('should')
   , request = require('request')
   , pony = require('pony')
+  , net = require('net')
 
-var http_port = 10000 + Math.floor(Math.random(10000))
+var http_port = 10000 + Math.floor(Math.random() * 10000)
   , smtp_port = http_port + 1
   , pat, send = pony({ host: "localhost", port: smtp_port, from: "mocha@pat.agnoster.net" })
 
 describe('Command-line tool', function() {
 
-    before(function() {
+    it('starts up', function(done) {
         pat = cp.execFile('./bin/postman-pat', ['-s', smtp_port, '-h', http_port])
+	done()
     })
 
     after(function() {
@@ -24,13 +26,21 @@ describe('Command-line tool', function() {
         })
     })
 
+    it('responds on the SMTP port ' + smtp_port, function(done) {
+      net.connect(smtp_port, 'localhost', done)
+    })
+
+    it('responds on the HTTP port ' + http_port, function(done) {
+      net.connect(http_port, 'localhost', done)
+    })
+
     it('responds to sending emails', function(done) {
         send({ to: "int.1@pat.agnoster.net" }, function(err, req) {
             should.not.exist(err)
             req.setHeader('subject', 'Howdy')
             req.setHeader('content-type', 'text/plain')
             req.end('Hello world.')
-            done()
+	    setTimeout(done, 1000)
         })
     })
 
