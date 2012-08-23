@@ -35,14 +35,14 @@ You really should be.
 
 Then check it out:
 
-    $ curl test.example.com/box/example.user.1
+    $ curl test.example.com/inbox/example.user.1
     [{"Subject":"Are you listening to me?","Body":"You really should be.\n"}]
 
 That's really all there is to it. You can `DELETE` a resource to clear its mailbox.
 
 ## todo
 
-    GET test.example.com/box/example.user.1/?limit=1&timeout=60
+    GET test.example.com/inbox/example.user.1/?limit=1&timeout=60
 
 Wait for the next mail to come into this mailbox. This means you can easily do
 a `DELETE`, perform an action that should trigger an email, then issue a `GET
