@@ -26,7 +26,7 @@
     "node": ">=0.6.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -R spec --globals msg"
+    "test": "./node_modules/.bin/mocha -R spec"
   },
   "license": "MIT"
 }
